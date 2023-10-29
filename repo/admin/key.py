@@ -12,18 +12,10 @@ class PhraseInlineAdmin(admin.StackedInline):
     show_change_link = True
     extra = 1
     fieldsets = [
+        (None, {"fields": [("language", "auto_translated"),],},),
         (
             None,
-            {
-                "fields": [("language", "auto_translated"), ],
-            },
-        ),
-        (
-            None,
-            {
-                "classes": ["wide", "extrapretty"],
-                "fields": ["source_value", "value"],
-            },
+            {"classes": ["wide", "extrapretty"], "fields": ["source_value", "value"],},
         ),
     ]
 

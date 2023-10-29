@@ -8,7 +8,14 @@ from .. import models
 class SpaceAdmin(admin.ModelAdmin):
     search_fields = ["name"]
     autocomplete_fields = ["default_language"]
-    list_display = ["name", "groups_count", "keys_count", "phrases_count", "languages_count", "translated_count"]
+    list_display = [
+        "name",
+        "groups_count",
+        "keys_count",
+        "phrases_count",
+        "languages_count",
+        "translated_count",
+    ]
     list_select_related = ["owner", "default_language"]
 
     def get_queryset(self, request):

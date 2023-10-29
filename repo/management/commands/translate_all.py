@@ -51,17 +51,10 @@ class Command(BaseCommand):
             for key in models.Key.objects.filter(space=space):
                 for engine_id in engines_conf:
                     engine = engines[engine_id]
-                    usage = (
-                        "Using:"
-                        if engine_id == engines_conf[0]
-                        else "Switched to:"
-                    )
+                    usage = "Using:" if engine_id == engines_conf[0] else "Switched to:"
                     try:
                         key.translate(
-                            engine,
-                            "en",
-                            language,
-                            skip_translated=skip_translated,
+                            engine, "en", language, skip_translated=skip_translated,
                         )
                         print(f"{usage} engine: {engine}")
                         print(f"Translated {key} to {language}")

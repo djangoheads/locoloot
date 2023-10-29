@@ -13,7 +13,6 @@ class KeyGroupsInlineAdmin(admin.TabularInline):
     extra = 0
 
 
-
 @admin.register(models.Group)
 class GroupAdmin(admin.ModelAdmin):
     search_fields = ["name"]
@@ -23,9 +22,7 @@ class GroupAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        qs = qs.annotate(
-            keys_count=Count("keys", distinct=True),
-        )
+        qs = qs.annotate(keys_count=Count("keys", distinct=True),)
         return qs
 
     @admin.display(description="Keys", ordering="keys_count")

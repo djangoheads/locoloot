@@ -64,7 +64,9 @@ class AutoTranslateEngine(models.Model):
             except TranslatorError:
                 raise
             except Exception as e:
-                print(f"Error during translation with {self.engine}, {to_language}, sleeping for {timeout}, {tries}/{max_tries} try")
+                print(
+                    f"Error during translation with {self.engine}, {to_language}, sleeping for {timeout}, {tries}/{max_tries} try"
+                )
                 time.sleep(timeout)
                 tries += 1
                 if tries == max_tries:

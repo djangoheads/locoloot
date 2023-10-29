@@ -55,7 +55,9 @@ class Key(models.Model):
             skip_translated
             and self.phrases.filter(language__iso_639_1=to_language).exists()
         ):
-            print("Skip: Phrase is translated, and skipped because of --skip-translated flag")
+            print(
+                "Skip: Phrase is translated, and skipped because of --skip-translated flag"
+            )
             return
 
         translated_text = engine.translate(

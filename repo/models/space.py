@@ -15,7 +15,8 @@ class Space(models.Model):
 
     @property
     def languages_count(self):
-        from .. models import Phrase
+        from ..models import Phrase
+
         return Phrase.objects.filter(key__space=self).aggregate(
-            languages_count=models.Count('language', distinct=True)
-        )['languages_count']
+            languages_count=models.Count("language", distinct=True)
+        )["languages_count"]
