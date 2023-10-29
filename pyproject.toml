@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "locoloot"
+version = "0.1.0"
+description = ""
+authors = ["Sergey Bershadsky <sergio.bershadsky@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "^4.2.6"
+django-languages-plus = "^2.0.0"
+pydantic = "^2.4.2"
+translators = "^5.8.7"
+django-debug-toolbar = "^4.2.0"
+
+[tool.poetry.group.dev.dependencies]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
