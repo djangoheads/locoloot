@@ -33,11 +33,18 @@ class Key(models.Model):
     space = models.ForeignKey("Space", on_delete=models.CASCADE, related_name="keys")
     key = models.TextField()
     key_hash = models.CharField(max_length=64, db_index=True, editable=False)
+    key_index = models.CharField(max_length=255, db_index=True, editable=False, null=True)
 
     objects = KeyQuerySet.as_manager()
 
     def __str__(self):
         return f"{self.key}"
+
+    def save(self, *args, **kwargs):
+        print(locals())
+        self.key_hash = hashlib.sha256(self.key.encode()).hexdigest()
+        self.key_index = self.key[:255]
+        return super().save(*args, **kwargs)
 
     def translate(self, engine, from_language, to_language, skip_translated=False):
         from_phrase = self.phrases.filter(language__iso_639_1=from_language).first()
@@ -67,8 +74,3 @@ class Key(models.Model):
             language=Language.objects.get(iso_639_1=to_language),
             defaults={"value": translated_text, "auto_translated": True,},
         )
-
-
-@receiver(models.signals.pre_save, sender=Key)
-def pre_save_key(sender, instance, **kwargs):
-    instance.key_hash = hashlib.sha256(instance.key.encode()).hexdigest()

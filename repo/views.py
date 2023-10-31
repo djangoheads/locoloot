@@ -15,7 +15,6 @@ def i18next_http_interface(request, space: str, lang_code: str, namespace: str):
     annotated_keys = namespace.get_translation(
         language=lang_code, fallback_language=fallback_language
     )
-    print(annotated_keys)
     data = {}
     for key in annotated_keys:
         data[key.key] = key.translation or key.fallback_translation

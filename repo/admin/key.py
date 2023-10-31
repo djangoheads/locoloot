@@ -22,7 +22,7 @@ class PhraseInlineAdmin(admin.StackedInline):
 
 @admin.register(models.Key)
 class KeyAdmin(admin.ModelAdmin):
-    search_fields = ["key"]
+    search_fields = ["key_index__startswith"]
     list_filter = ["space", "groups__group"]
     inlines = [PhraseInlineAdmin]
 
