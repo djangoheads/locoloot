@@ -33,7 +33,9 @@ class Key(models.Model):
     space = models.ForeignKey("Space", on_delete=models.CASCADE, related_name="keys")
     key = models.TextField()
     key_hash = models.CharField(max_length=64, db_index=True, editable=False)
-    key_index = models.CharField(max_length=255, db_index=True, editable=False, null=True)
+    key_index = models.CharField(
+        max_length=255, db_index=True, editable=False, null=True
+    )
 
     objects = KeyQuerySet.as_manager()
 
