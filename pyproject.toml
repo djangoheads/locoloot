@@ -12,6 +12,8 @@ django-languages-plus = "^2.0.0"
 pydantic = "^2.4.2"
 translators = "^5.8.7"
 django-debug-toolbar = "^4.2.0"
+dynaconf = "^3.2.3"
+psycopg2 = "^2.9.9"
 
 [tool.poetry.group.dev.dependencies]
 
