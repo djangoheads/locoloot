@@ -1,5 +1,7 @@
 import time
 import translators
+from django.core.exceptions import ValidationError
+from django.core.validators import URLValidator
 
 from django.db import models
 from translators.server import TranslatorError
@@ -20,10 +22,19 @@ class AutoTranslateEngine(models.Model):
         """
         TODO: Refactor, reduce complexity
         TODO: Fix RTL languages
+        TODO: If is url link pass it
         """
         tries = 0
         max_tries = 3
         timeout_factor = 0.5
+
+        validator = URLValidator()
+        try:
+            validator(value)
+            print(f"Skip URL: {value}")
+            return value
+        except ValidationError:
+            print(f'Countinue with: {value}')
 
         def parse_template_tags(sub_value):
             """
@@ -71,7 +82,7 @@ class AutoTranslateEngine(models.Model):
                 tries += 1
                 if tries == max_tries:
                     try:
-                        result = translators.translate_text(
+                        return translators.translate_text(
                             value,
                             translator=self.engine,
                             from_language=from_language,
@@ -80,4 +91,5 @@ class AutoTranslateEngine(models.Model):
                         )
                     except TranslatorError:
                         result = "Undefined"
-                    raise Exception(f"Failed to translate: {e} with {result}") from e
+                    # raise Exception(f"Failed to translate: {e} with {result}") from e
+                    print(f"Failed to translate: '{value}': {e} with {result}")

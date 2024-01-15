@@ -14,6 +14,7 @@ default:
     - countries_plus
     - languages_plus
     - debug_toolbar
+    - djangoheads
     # Local Apps
     - repo
   MIDDLEWARE:
@@ -54,4 +55,5 @@ default:
   USE_I18N: true
   USE_TZ: true
   STATIC_URL: /static/
+  STATIC_ROOT: /var/www/static
   DEFAULT_AUTO_FIELD: django.db.models.BigAutoField

@@ -9,8 +9,9 @@ class PhraseInlineAdmin(admin.StackedInline):
     template = "admin/edit_inline/repo_stacked.html"
     autocomplete_fields = ["language"]
     readonly_fields = ["auto_translated", "language", "source_value", "value"]
-    show_change_link = True
-    extra = 1
+    show_change_link = False
+    can_delete = False
+    extra = 0
     fieldsets = [
         (None, {"fields": [("language", "auto_translated"),],},),
         (
@@ -18,6 +19,9 @@ class PhraseInlineAdmin(admin.StackedInline):
             {"classes": ["wide", "extrapretty"], "fields": ["source_value", "value"],},
         ),
     ]
+
+    def has_add_permission(self, request, obj):
+        return False
 
 
 @admin.register(models.Key)

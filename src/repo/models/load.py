@@ -29,6 +29,13 @@ class FileImport(models.Model):
 
     @classmethod
     def from_file(cls, space, group_name, language, file):
+        raise NotImplementedError()
+
+
+class ImportI18Next(FileImport):
+
+    @classmethod
+    def from_file(cls, space, group_name, language, file):
         data = json.load(file)
         if not data:
             return
@@ -52,10 +59,6 @@ class FileImport(models.Model):
             key, created = Key.objects.get_or_create(space=space, key=key)
             key.groups.update_or_create(group=group)
             key.phrases.update_or_create(language=language, defaults={"value": value})
-
-
-class ImportI18Next(FileImport):
-    pass
 
 
 class I18NextComponentSchema(RootModel[typing.Dict[str, str]]):
